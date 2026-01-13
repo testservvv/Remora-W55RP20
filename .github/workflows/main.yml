@@ -19,7 +19,7 @@ jobs:
 
     - name: Clone Pico SDK
       run: |
-        git clone https://github.com/raspberrypi/pico-sdk.git
+        git clone --branch 1.5.1 https://github.com/raspberrypi/pico-sdk.git
         cd pico-sdk
         git submodule update --init
         echo "PICO_SDK_PATH=$PWD" >> $GITHUB_ENV
