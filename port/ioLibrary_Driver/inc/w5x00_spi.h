@@ -15,11 +15,12 @@
 /* SPI */
 #define SPI_PORT spi0
 
-#define PIN_SCK 18
-#define PIN_MOSI 19
-#define PIN_MISO 16
-#define PIN_CS 17
-#define PIN_RST 20
+/* Edited for use with W55RP20-EVB-Pico */
+#define PIN_SCK 22   // SCK (internal
+#define PIN_MOSI 23  // TX (internal)
+#define PIN_MISO 21  // RX (internal)
+#define PIN_CS 20    // CS (internal)
+#define PIN_RST 25   // Reset (internal usually PIN 25)
 
 /* Use SPI DMA */
 #define USE_SPI_DMA // if you want to use SPI DMA, uncomment.
