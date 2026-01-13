@@ -1,0 +1,38 @@
+name: Build Remora Firmware
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Install Toolchain
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
+
+    - name: Clone Pico SDK
+      run: |
+        git clone https://github.com/raspberrypi/pico-sdk.git
+        cd pico-sdk
+        git submodule update --init
+        echo "PICO_SDK_PATH=$PWD" >> $GITHUB_ENV
+
+    - name: Build Firmware
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+
+    - name: Upload Firmware (.uf2)
+      uses: actions/upload-artifact@v4
+      with:
+        name: remora-w55rp20-firmware
+        path: build/*.uf2
